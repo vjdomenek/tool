@@ -1,0 +1,58 @@
+def get_int_from_array_knob(knob):
+    """Converte il valore di un knob array in intero.
+
+    Args:
+        knob: Un oggetto `Array_Knob`.
+
+    Returns:
+        Il valore intero del knob array.
+    """
+
+    value = knob.getValue()
+    if isinstance(value, (list, tuple)):
+        # Prendi il primo valore dell'array
+        value = value[0]
+
+    # Converti il valore in intero
+    value = int(value)
+
+    return value
+
+node = nuke.toNode('Blun.Control')
+size = get_int_from_array_knob(node["iteration"])
+print(size)
+
+with nuke.toNode('Blun'):
+    
+    x = nuke.toNode('Blun.Inputsrc')
+    y = nuke.toNode('Blun.Inputroto')
+    ms = nuke.createNode("Merge2", inpanel=False)
+    ms.knob('operation').setValue('stencil')
+    ms.setInput(0, x)
+    ms.setInput(1, y)
+
+    for i in range(size):
+        # creo un dot per collegarli
+        dot = nuke.createNode("Dot", inpanel=False)
+        
+        # riempimento
+        b = nuke.createNode("Blur",inpanel=False)
+        u = nuke.createNode("Unpremult",inpanel=False)
+        b.knob('size').setExpression('sizeb')
+
+        # merge under del riempimento
+        mergeU = nuke.createNode("Merge2",inpanel=False)
+        mergeU.knob('operation').setValue('under')
+        mergeU.setInput(0, dot)
+        mergeU.setInput(1, u)
+        
+        # setto il nuovo alpha
+        gradeA = nuke.createNode("Grade",inpanel=False)
+        gradeA.setInput(0, u)
+        gradeA.knob('whitepoint').setValue(0)
+        
+        # copy nuovo alfa
+        k = nuke.createNode('Copy',inpanel=False)
+        k.knob('from0').setValue('rgba.green')
+        k.setInput(0, mergeU)
+        k.setInput(1, gradeA)
