@@ -1,0 +1,285 @@
+set cut_paste_input [stack 0]
+version 13.1 v5
+push 0
+push $cut_paste_input
+Group {
+inputs 2
+name Blun
+selected true
+xpos -599
+ypos 6924
+addUserKnob {20 User}
+addUserKnob {7 sizeb R 1 10}
+sizeb 10
+addUserKnob {41 iteration T Control.iteration}
+addUserKnob {22 Go -STARTLINE T "def get_int_from_array_knob(knob):\n    \"\"\"Converte il valore di un knob array in intero.\n\n    Args:\n        knob: Un oggetto `Array_Knob`.\n\n    Returns:\n        Il valore intero del knob array.\n    \"\"\"\n\n    value = knob.getValue()\n    if isinstance(value, (list, tuple)):\n        # Prendi il primo valore dell'array\n        value = value\[0]\n\n    # Converti il valore in intero\n    value = int(value)\n\n    return value\n\nnode = nuke.toNode('Blun.Control')\nsize = get_int_from_array_knob(node\[\"iteration\"])\nprint(size)\n\nwith nuke.toNode('Blun'):\n    \n    x = nuke.toNode('Blun.Inputsrc')\n    y = nuke.toNode('Blun.Inputroto')\n    ms = nuke.createNode(\"Merge2\", inpanel=False)\n    ms.knob('operation').setValue('stencil')\n    ms.setInput(0, x)\n    ms.setInput(1, y)\n\n    for i in range(size):\n        # creo un dot per collegarli\n        dot = nuke.createNode(\"Dot\", inpanel=False)\n        \n        # riempimento\n        b = nuke.createNode(\"Blur\",inpanel=False)\n        u = nuke.createNode(\"Unpremult\",inpanel=False)\n        b.knob('size').setExpression('sizeb')\n\n        # merge under del riempimento\n        mergeU = nuke.createNode(\"Merge2\",inpanel=False)\n        mergeU.knob('operation').setValue('under')\n        mergeU.setInput(0, dot)\n        mergeU.setInput(1, u)\n        \n        # setto il nuovo alpha\n        gradeA = nuke.createNode(\"Grade\",inpanel=False)\n        gradeA.setInput(0, u)\n        gradeA.knob('whitepoint').setValue(0)\n        \n        # copy nuovo alfa\n        k = nuke.createNode('Copy',inpanel=False)\n        k.knob('from0').setValue('rgba.green')\n        k.setInput(0, mergeU)\n        k.setInput(1, gradeA)"}
+}
+Input {
+inputs 0
+name Inputroto
+xpos -178
+ypos 65
+number 1
+}
+set N165dd1f0 [stack 0]
+Dot {
+name Dot3
+xpos -112
+ypos 1913
+}
+Input {
+inputs 0
+name Inputsrc
+xpos -7
+ypos -2
+}
+set N165e6af0 [stack 0]
+Blur {
+inputs 1+1
+name Blur3
+xpos 70
+ypos 1903
+}
+Output {
+name Output1
+xpos 70
+ypos 2078
+}
+push $N165e6af0
+push $N165e6af0
+Viewer {
+inputs 2
+frame 1066
+frame_range 1001-1141
+colour_sample_bbox {-0.1396484375 -0.2919921875 -0.1391601562 -0.2915039062}
+viewerProcess "sRGB (ACES)"
+input_process false
+name Viewer1
+xpos 620
+ypos 2054
+}
+NoOp {
+inputs 0
+name Control
+xpos -22
+ypos -165
+addUserKnob {20 User}
+addUserKnob {3 iteration}
+iteration 5
+addUserKnob {22 Ripetizioni l Go T "def get_int_from_array_knob(knob):\n    \"\"\"Converte il valore di un knob array in intero.\n\n    Args:\n        knob: Un oggetto `Array_Knob`.\n\n    Returns:\n        Il valore intero del knob array.\n    \"\"\"\n\n    value = knob.getValue()\n    if isinstance(value, (list, tuple)):\n        # Prendi il primo valore dell'array\n        value = value\[0]\n\n    # Converti il valore in intero\n    value = int(value)\n\n    return value\n\n#node = nuke.selectedNode()\n#size = get_int_from_array_knob(nuke.toNode('Control')\[\"integer\"])\nnode = nuke.selectedNode()\nsize = get_int_from_array_knob(node\[\"iteration\"])\nprint(size)\n\nfor i in range(size):\n    #creo un dot per collegarli\n    dot=nuke.createNode(\"Dot\", inpanel=False)\n    \n    #riempimento\n    b=nuke.createNode(\"Blur\")\n    u=nuke.createNode(\"Unpremult\")\n    \n    #merge under del riempimento\n    mergeU=nuke.createNode(\"Merge2\")\n    mergeU.knob('operation').setValue('under')\n    mergeU.setInput(0, dot)\n    mergeU.setInput(1, u)\n    \n    #setto il nuovo alpha\n    gradeA=nuke.createNode(\"Grade\")\n    gradeA.setInput(0,u)\n    gradeA.knob('whitepoint').setValue(0)\n    \n    #copy nuovo alha\n    k=nuke.createNode('Copy')\n    k.knob('from0').setValue('rgba.green')\n    k.setInput(0, mergeU)\n    k.setInput(1, gradeA)" +STARTLINE}
+}
+push $N165dd1f0
+push $N165e6af0
+Merge2 {
+inputs 2
+operation stencil
+name Merge1
+xpos 62
+ypos 229
+}
+Dot {
+name Dot1
+xpos 101
+ypos 262
+}
+set Nfbff8480 [stack 0]
+Blur {
+size {{sizeb}}
+name Blur1
+xpos 67
+ypos 280
+}
+Unpremult {
+name Unpremult1
+xpos 67
+ypos 318
+}
+set N73fa040 [stack 0]
+Grade {
+whitepoint 0
+name Grade1
+xpos 67
+ypos 346
+}
+push $N73fa040
+push $Nfbff8480
+Merge2 {
+inputs 2
+operation under
+name Merge2
+xpos 177
+ypos 314
+}
+Copy {
+inputs 2
+from0 rgba.green
+to0 rgba.alpha
+name Copy1
+xpos 177
+ypos 340
+}
+Dot {
+name Dot2
+xpos 211
+ypos 378
+}
+set Nf7af16f0 [stack 0]
+Blur {
+size {{sizeb}}
+name Blur2
+xpos 177
+ypos 396
+}
+Unpremult {
+name Unpremult2
+xpos 177
+ypos 434
+}
+set Nf79f41f0 [stack 0]
+Grade {
+whitepoint 0
+name Grade2
+xpos 177
+ypos 462
+}
+push $Nf79f41f0
+push $Nf7af16f0
+Merge2 {
+inputs 2
+operation under
+name Merge3
+xpos 287
+ypos 430
+}
+Copy {
+inputs 2
+from0 rgba.green
+to0 rgba.alpha
+name Copy2
+xpos 287
+ypos 456
+}
+Dot {
+name Dot4
+xpos 321
+ypos 494
+}
+set Nf76fbe40 [stack 0]
+Blur {
+size {{sizeb}}
+name Blur4
+xpos 287
+ypos 512
+}
+Unpremult {
+name Unpremult3
+xpos 287
+ypos 550
+}
+set Nf75feec0 [stack 0]
+Grade {
+whitepoint 0
+name Grade3
+xpos 287
+ypos 578
+}
+push $Nf75feec0
+push $Nf76fbe40
+Merge2 {
+inputs 2
+operation under
+name Merge4
+xpos 397
+ypos 546
+}
+Copy {
+inputs 2
+from0 rgba.green
+to0 rgba.alpha
+name Copy3
+xpos 397
+ypos 572
+}
+Dot {
+name Dot5
+xpos 431
+ypos 610
+}
+set Nf71f70e0 [stack 0]
+Blur {
+size {{sizeb}}
+name Blur5
+xpos 397
+ypos 628
+}
+Unpremult {
+name Unpremult4
+xpos 397
+ypos 666
+}
+set Nf70f9e20 [stack 0]
+Grade {
+whitepoint 0
+name Grade4
+xpos 397
+ypos 694
+}
+push $Nf70f9e20
+push $Nf71f70e0
+Merge2 {
+inputs 2
+operation under
+name Merge5
+xpos 507
+ypos 662
+}
+Copy {
+inputs 2
+from0 rgba.green
+to0 rgba.alpha
+name Copy4
+xpos 507
+ypos 688
+}
+Dot {
+name Dot6
+xpos 541
+ypos 726
+}
+set Nf6cf2b20 [stack 0]
+Blur {
+size {{sizeb}}
+name Blur6
+xpos 507
+ypos 744
+}
+Unpremult {
+name Unpremult5
+xpos 507
+ypos 782
+}
+set Nf6bf5100 [stack 0]
+Grade {
+whitepoint 0
+name Grade5
+xpos 507
+ypos 810
+}
+push $Nf6bf5100
+push $Nf6cf2b20
+Merge2 {
+inputs 2
+operation under
+name Merge6
+xpos 617
+ypos 778
+}
+Copy {
+inputs 2
+from0 rgba.green
+to0 rgba.alpha
+name Copy5
+xpos 617
+ypos 804
+}
+end_group
