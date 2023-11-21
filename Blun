@@ -56,3 +56,11 @@ with nuke.toNode('Blun'):
         k.knob('from0').setValue('rgba.green')
         k.setInput(0, mergeU)
         k.setInput(1, gradeA)
+        
+    final = nuke.createNode("Dot",inpanel=False)
+    final.knob('name').setValue('Fine')
+    bf = nuke.toNode('Blur1')
+    ir = nuke.toNode('Inputroto')
+    bf.setInput(0,final)
+    bf.setInput(1,ir)
+    
