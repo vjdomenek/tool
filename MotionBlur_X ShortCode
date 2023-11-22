@@ -1,0 +1,12 @@
+def collega_knob(source_knob, destination_knob):
+    source_node = nuke.toNode('MotionBlur_X')
+    destination_node = nuke.toNode('MotionBlur_X')
+    expression = '{}.{}'.format(source_node.name(), source_knob)
+    destination_node[destination_knob].setExpression(expression)
+
+collega_knob('a', 'shutterSamples')
+collega_knob('b', 'shutterTime')
+collega_knob('c', 'motionEstimation')
+collega_knob('d', 'vectorDetailReg')
+collega_knob('e', 'resampleType')
+collega_knob('f', 'matteChannel')
