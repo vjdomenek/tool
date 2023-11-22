@@ -1,0 +1,26 @@
+set cut_paste_input [stack 0]
+version 13.1 v5
+push $cut_paste_input
+SmartVector {
+ vectorDetailReg {{SmartVector_X.a}}
+ strengthReg {{SmartVector_X.b}}
+ matteChannel {{SmartVector_X.c}}
+ output {{SmartVector_X.d}}
+ inpainting {{SmartVector_X.e}}
+ matteDilation {{SmartVector_X.f}}
+ name SmartVector_X
+ selected true
+ xpos -434
+ ypos -79
+ addUserKnob {20 SM}
+ addUserKnob {7 a l "Vector Detail"}
+ a 0.3
+ addUserKnob {7 b l Strenght R 0 1.5}
+ b 1.5
+ addUserKnob {4 c l Matte M {None "Source Alpha" "Source Inverted Alpha" "Matte Luminance" "Matte Inverted Luminance" "Matte Alpha" "Matte Inverted Alpha"}}
+ addUserKnob {4 d l Output M {Foreground Background}}
+ d Background
+ addUserKnob {6 e l "Inpaint Matte Region" +STARTLINE}
+ addUserKnob {7 f l "Matte Dilatation" R 0 100}
+ f 50
+}
