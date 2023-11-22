@@ -1,0 +1,115 @@
+# Ottieni il nodo sorgente
+source_node = nuke.toNode('MotionBlur_X')
+
+# Ottieni il nodo destinazione
+destination_node = nuke.toNode('MotionBlur_X')
+
+# Nome del knob nel nodo sorgente
+source_knob_name = 'a'
+
+# Nome del knob nel nodo destinazione
+destination_knob_name = 'shutterSamples'
+
+# Crea l'espressione per collegare i due knob
+expression = '{}.{}'.format(source_node.name(), source_knob_name)
+
+# Collega l'espressione al knob del nodo destinazione
+destination_node[destination_knob_name].setExpression(expression) 
+
+
+
+
+# Ottieni il nodo sorgente
+source_node = nuke.toNode('MotionBlur_X')
+
+# Ottieni il nodo destinazione
+destination_node = nuke.toNode('MotionBlur_X')
+
+# Nome del knob nel nodo sorgente
+source_knob_name = 'b'
+
+# Nome del knob nel nodo destinazione
+destination_knob_name = 'shutterTime'
+
+# Crea l'espressione per collegare i due knob
+expression = '{}.{}'.format(source_node.name(), source_knob_name)
+
+# Collega l'espressione al knob del nodo destinazione
+destination_node[destination_knob_name].setExpression(expression)
+
+
+
+# Ottieni il nodo sorgente
+source_node = nuke.toNode('MotionBlur_X')
+
+# Ottieni il nodo destinazione
+destination_node = nuke.toNode('MotionBlur_X')
+
+# Nome del knob nel nodo sorgente
+source_knob_name = 'c'
+
+# Nome del knob nel nodo destinazione
+destination_knob_name = 'motionEstimation'
+
+# Crea l'espressione per collegare i due knob
+expression = '{}.{}'.format(source_node.name(), source_knob_name)
+
+# Collega l'espressione al knob del nodo destinazione
+destination_node[destination_knob_name].setExpression(expression)
+
+
+# Ottieni il nodo sorgente
+source_node = nuke.toNode('MotionBlur_X')
+
+# Ottieni il nodo destinazione
+destination_node = nuke.toNode('MotionBlur_X')
+
+# Nome del knob nel nodo sorgente
+source_knob_name = 'd'
+
+# Nome del knob nel nodo destinazione
+destination_knob_name = 'vectorDetailReg'
+
+# Crea l'espressione per collegare i due knob
+expression = '{}.{}'.format(source_node.name(), source_knob_name)
+
+# Collega l'espressione al knob del nodo destinazione
+destination_node[destination_knob_name].setExpression(expression)
+
+
+
+# Ottieni il nodo sorgente
+source_node = nuke.toNode('MotionBlur_X')
+
+# Ottieni il nodo destinazione
+destination_node = nuke.toNode('MotionBlur_X')
+
+# Nome del knob nel nodo sorgente
+source_knob_name = 'e'
+
+# Nome del knob nel nodo destinazione
+destination_knob_name = 'resampleType'
+
+# Crea l'espressione per collegare i due knob
+expression = '{}.{}'.format(source_node.name(), source_knob_name)
+
+# Collega l'espressione al knob del nodo destinazione
+destination_node[destination_knob_name].setExpression(expression)
+
+# Ottieni il nodo sorgente
+source_node = nuke.toNode('MotionBlur_X')
+
+# Ottieni il nodo destinazione
+destination_node = nuke.toNode('MotionBlur_X')
+
+# Nome del knob nel nodo sorgente
+source_knob_name = 'f'
+
+# Nome del knob nel nodo destinazione
+destination_knob_name = 'matteChannel'
+
+# Crea l'espressione per collegare i due knob
+expression = '{}.{}'.format(source_node.name(), source_knob_name)
+
+# Collega l'espressione al knob del nodo destinazione
+destination_node[destination_knob_name].setExpression(expression)
