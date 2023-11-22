@@ -1,0 +1,26 @@
+set cut_paste_input [stack 0]
+version 13.1 v5
+push $cut_paste_input
+MotionBlur {
+ shutterSamples {{MotionBlur_X.a}}
+ shutterTime {{MotionBlur_X.b}}
+ motionEstimation {{MotionBlur_X.c}}
+ vectorDetailReg {{MotionBlur_X.d}}
+ resampleType {{MotionBlur_X.e}}
+ matteChannel {{MotionBlur_X.f}}
+ name MotionBlur_X
+ selected true
+ xpos -728
+ ypos 36
+ addUserKnob {20 MB}
+ addUserKnob {3 a l "Shutter Samples"}
+ a 3
+ addUserKnob {7 b l "Shutter Time" R 0 10}
+ b 0.75
+ addUserKnob {4 c l Motion M {Regularized Local ""}}
+ addUserKnob {7 d l "Vector Detail"}
+ d 0.3
+ addUserKnob {4 e l Filter M {Bilinear Lanczos4 Lanczos6}}
+ addUserKnob {4 f l Matte M {None "Source Alpha" "Source Inverted Alpha" "Matte Luminance" "Matte Inverted Luminance" "Matte Alpha" "Matte Inverted Alpha" ""}}
+ addUserKnob {22 Enable T "def collega_knob(source_knob, destination_knob):\n    source_node = nuke.toNode('MotionBlur_X')\n    destination_node = nuke.toNode('MotionBlur_X')\n    expression = '\{\}.\{\}'.format(source_node.name(), source_knob)\n    destination_node\[destination_knob].setExpression(expression)\n\ncollega_knob('a', 'shutterSamples')\ncollega_knob('b', 'shutterTime')\ncollega_knob('c', 'motionEstimation')\ncollega_knob('d', 'vectorDetailReg')\ncollega_knob('e', 'resampleType')\ncollega_knob('f', 'matteChannel')" +STARTLINE}
+}
