@@ -1,0 +1,12 @@
+def collega_knob(source_knob, destination_knob):
+    source_node = nuke.toNode('SmartVector_X')
+    destination_node = nuke.toNode('SmartVector_X')
+    expression = '{}.{}'.format(source_node.name(), source_knob)
+    destination_node[destination_knob].setExpression(expression)
+
+collega_knob('a', 'vectorDetailReg')
+collega_knob('b', 'strengthReg')
+collega_knob('c', 'matteChannel')
+collega_knob('d', 'output')
+collega_knob('e', 'inpainting')
+collega_knob('f', 'matteDilation')
