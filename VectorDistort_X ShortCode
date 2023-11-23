@@ -1,0 +1,11 @@
+def collega_knob(source_knob, destination_knob):
+    source_node = nuke.toNode('VectorDistort_X')
+    destination_node = nuke.toNode('VectorDistort_X')
+    expression = '{}.{}'.format(source_node.name(), source_knob)
+    destination_node[destination_knob].setExpression(expression)
+
+collega_knob('a', 'referenceFrame')
+collega_knob('b', 'frameDistance')
+collega_knob('c', 'outputMode')
+collega_knob('d', 'blurSize')
+collega_knob('e', 'imageFilter')
