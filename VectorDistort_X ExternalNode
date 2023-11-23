@@ -1,0 +1,26 @@
+set cut_paste_input [stack 0]
+version 13.1 v5
+push $cut_paste_input
+VectorDistort {
+referenceFrame {{VectorDistort_X.a}}
+reference_frame_set true
+frameDistance {{VectorDistort_X.b}}
+outputMode {{VectorDistort_X.c}}
+blurSize {{VectorDistort_X.d}}
+imageFilter {{VectorDistort_X.e}}
+name VectorDistort_X
+selected true
+xpos -1643
+ypos 13301
+addUserKnob {20 DV}
+addUserKnob {3 a l "Reference Frame"}
+a {1}
+addUserKnob {22 setcf l "set to current frame" -STARTLINE T "valore_frame = nuke.frame()\n\nnodo_attuale = nuke.thisNode()\n\nnome_knob = 'a'\n\nnodo_attuale\[nome_knob].setValue(valore_frame)\n"}
+addUserKnob {4 b l "Frame Distance" M {"1 frame" "2 frames" "4 frames" "8 frames" "16 frames" "32 frames" "64 frames" "" ""}}
+addUserKnob {26 text l Output}
+addUserKnob {4 c l Output M {"wraped src" st-map "st-map inverse"}}
+addUserKnob {7 d l "Blur Size" R 0 32}
+addUserKnob {4 e l Filter M {impulse cubic Keyes Simon Rifman Mitchell Parzen notch Lanczos4 Lanczos6 sinc4}}
+e cubic
+addUserKnob {22 Enable T "def collega_knob(source_knob, destination_knob):\n    source_node = nuke.toNode('VectorDistort_X')\n    destination_node = nuke.toNode('VectorDistort_X')\n    expression = '\{\}.\{\}'.format(source_node.name(), source_knob)\n    destination_node\[destination_knob].setExpression(expression)\n\ncollega_knob('a', 'referenceFrame')\ncollega_knob('b', 'frameDistance')\ncollega_knob('c', 'outputMode')\ncollega_knob('d', 'blurSize')\ncollega_knob('e', 'imageFilter')" +STARTLINE}
+}
