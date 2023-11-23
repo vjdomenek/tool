@@ -1,0 +1,52 @@
+set cut_paste_input [stack 0]
+version 13.1 v5
+push $cut_paste_input
+Kronos {
+input.first {{Kronos_X.a}}
+input.last {{Kronos_X.b}}
+retimedChannels all
+interpolation {{Kronos_X.c}}
+timing2 {{Kronos_X.d}}
+timingOutputSpeed {{Kronos_X.e}}
+timingInputSpeed {{Kronos_X.n}}
+timingFrame2 {{Kronos_X.o}}
+motionEstimation {{Kronos_X.f}}
+vectorDetailReg {{Kronos_X.g}}
+strengthReg {{Kronos_X.h}}
+resampleType {{Kronos_X.i}}
+shutterSamples {1}
+shutterTime {0}
+output {{Kronos_X.l}}
+matteChannel {{Kronos_X.m}}
+weightRed {0.3}
+weightGreen {0.6}
+weightBlue {0.1}
+vectorSpacing {20}
+name Kronos_X
+selected true
+xpos -1476
+ypos 17384
+addUserKnob {20 Kro}
+addUserKnob {3 a l "Input Range"}
+a {1001}
+addUserKnob {3 b l "" -STARTLINE}
+b {1141}
+addUserKnob {22 Reset -STARTLINE T "primo_frame = nuke.root()\['first_frame'].value()\nnodo_attuale = nuke.thisNode()\nnome_knob = 'a'  \nnodo_attuale\[nome_knob].setValue(primo_frame)\nultimo_frame = nuke.root()\['last_frame'].value()\nnodo_attuale = nuke.thisNode()\nnome_knob = 'b'  \nnodo_attuale\[nome_knob].setValue(ultimo_frame)\n\n"}
+addUserKnob {4 c l Method M {Frame Blend Motion}}
+c Motion
+addUserKnob {4 d l Timing M {"Output Speed" "Input Speed" Frame ""}}
+d "Input Speed"
+addUserKnob {7 e l "Output Speed" R 0 5}
+e 0.5
+addUserKnob {7 n l "Input Speed" R 0 5}
+n 1.04
+addUserKnob {7 o l Frame R 0 1000}
+addUserKnob {4 f l Motion M {Regularized Local}}
+addUserKnob {7 g l "Vector Detail"}
+g 0.3
+addUserKnob {7 h l Strenght R 0 5}
+h 1.5
+addUserKnob {4 i l Filter M {Bilinear Lanczos4 Lanczos6}}
+addUserKnob {4 l l Output M {Result Matte Foreground Background}}
+addUserKnob {4 m l Matte M {None "Source Alpha" "Source Inverted Alpha" "Matte Luminance" "Matte Inverted Luminance" "Matte Alpha" "Matte Inverted Alpha"}}
+}
