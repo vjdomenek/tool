@@ -1,0 +1,16 @@
+set cut_paste_input [stack 0]
+version 14.0 v2
+push $cut_paste_input
+NoOp {
+name Control
+selected true
+xpos -1525
+ypos 885
+addUserKnob {20 User}
+addUserKnob {7 defocusc l defocus R 0 100}
+addUserKnob {22 defocuslink l link T "def link_defocus_to_controller():\n    # Ottieni la selezione corrente nel Node Graph\n    selected_nodes = nuke.selectedNodes()\n\n    # Verifica se ci sono almeno due nodi selezionati\n    if len(selected_nodes) < 2:\n        nuke.message('Seleziona almeno due nodi Defocus.')\n        return\n\n    # Verifica se esiste un nodo di controllo chiamato 'Control'\n    control_node = nuke.thisNode()\n    if not control_node:\n        # Crea il nodo di controllo se non esiste\n        control_node = nuke.createNode('NoOp', 'name Control')\n\n    # Crea un espressione di collegamento usando il nodo di controllo come riferimento\n    for node in selected_nodes:\n        # Verifica se il nodo è un nodo Defocus\n        if node.Class() == 'Defocus':\n            # Colleghiamo il parametro 'defocus' del nodo Defocus al parametro 'defocusc' del nodo di controllo\n            node\['defocus'].setExpression('parent.' + control_node.name() + '.defocusc')\n\n# Chiama la funzione per collegare i parametri Defocus dei nodi selezionati al nodo di controllo\nlink_defocus_to_controller()\n" +STARTLINE}
+addUserKnob {22 unlink -STARTLINE T "def unlink_defocus_from_controller():\n    # Ottieni la selezione corrente nel Node Graph\n    selected_nodes = nuke.selectedNodes()\n\n    # Verifica se esiste un nodo di controllo chiamato 'Control'\n    control_node = nuke.toNode('Control')\n    if not control_node:\n        nuke.message('Il nodo di controllo \"Control\" non esiste.')\n        return\n\n    # Rimuovi le espressioni di collegamento per tutti i nodi Defocus selezionati\n    for node in selected_nodes:\n        # Verifica se il nodo è un nodo Defocus\n        if node.Class() == 'Defocus':\n            # Rimuovi l'espressione di collegamento\n            node\['defocus'].clearAnimated()\n\n# Chiama la funzione per rimuovere i collegamenti\nunlink_defocus_from_controller()"}
+addUserKnob {26 ""}
+addUserKnob {22 Enable l "Enable/Disable Defocus" T "def toggle_defocus_nodes():\n    \n    selected_nodes = nuke.selectedNodes()\n\n    \n    for node in selected_nodes:\n        \n        if node.Class() == 'Defocus':\n            \n            node\['disable'].setValue(not node\['disable'].value())\n\ntoggle_defocus_nodes()" +STARTLINE}
+addUserKnob {26 ""}
+}
