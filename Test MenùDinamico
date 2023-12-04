@@ -1,0 +1,39 @@
+
+test= nuke.selectedNode()
+test['slider1'].setVisible(False)
+
+
+test= nuke.selectedNode()
+test['slider1'].setVisible(True)
+
+
+def knob_changed():
+    selected_option = test_node['b'].value()
+    test_node['slider1'].setVisible(selected_option == 'z')
+
+# Assicurati che il nodo "test" esista
+test_node = nuke.toNode("test")
+if test_node:
+    # Aggiungi la callback per l'evento knobChanged
+    nuke.addKnobChanged(knob_changed)
+
+    # Inizializza la visibilità di slider1 in base all'opzione corrente
+    knob_changed()
+
+
+
+
+set cut_paste_input [stack 0]
+version 14.0 v2
+push $cut_paste_input
+NoOp {
+name test
+selected true
+xpos -2618
+ypos 922
+addUserKnob {20 User}
+addUserKnob {4 b M {x y z}}
+b z
+addUserKnob {7 slider1}
+}
+
