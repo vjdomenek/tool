@@ -1,0 +1,87 @@
+set cut_paste_input [stack 0]
+version 14.0 v2
+push $cut_paste_input
+Group {
+name Match_HSL
+selected true
+xpos -2643
+ypos 999
+addUserKnob {20 Match}
+addUserKnob {4 menu l menù M {Constant Img}}
+addUserKnob {41 color T Constant1.color}
+addUserKnob {41 size l blur T Blur2.size}
+addUserKnob {41 which l dissolve T Dissolve1.which}
+addUserKnob {26 text l "" +STARTLINE T "\n\n\n              Domenico Giampaglia v1.0"}
+}
+Input {
+inputs 0
+name Inputsrc
+xpos -894
+ypos 155
+number 1
+}
+Blur {
+size 250
+name Blur2
+xpos -894
+ypos 201
+}
+Constant {
+inputs 0
+channels rgb
+name Constant1
+xpos -1071
+ypos 145
+}
+Switch {
+inputs 2
+which {{menu.0}}
+name Switch1
+xpos -979
+ypos 290
+}
+Colorspace {
+colorspace_out HSL
+name Colorspace2
+selected true
+xpos -979
+ypos 340
+}
+Input {
+inputs 0
+name InputElement
+xpos -648
+ypos 137
+}
+Colorspace {
+colorspace_out HSL
+name Colorspace3
+xpos -648
+ypos 227
+}
+Dissolve {
+inputs 2
+channels {rgba.red rgba.green -rgba.blue none}
+name Dissolve1
+xpos -648
+ypos 340
+}
+Colorspace {
+colorspace_in HSL
+name Colorspace4
+xpos -648
+ypos 461
+}
+Output {
+name Output1
+xpos -648
+ypos 549
+}
+Viewer {
+frame_range 1001-1162
+viewerProcess "sRGB (ACES)"
+name Viewer1
+xpos -924
+ypos 790
+}
+end_group
